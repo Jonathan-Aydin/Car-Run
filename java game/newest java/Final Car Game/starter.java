@@ -17,19 +17,21 @@ public class starter implements InputControl, InputKeyControl
 			KeyController kC = new KeyController(Canvas.getInstance(),new starter());
 			Text bob = new Text(700,332.5,"Click Here To Begin!");
 			bob.setColor(Color.WHITE);
-			bob.grow(150,75); 
+			bob.grow(155,75); 
 			button = new Rectangle(500,275,450,150);
 			button.setColor(Color.RED);
 			
 			Text bobt = new Text(700,332.5,"You Win! Click To Begin Level !");
 						bobt.setColor(Color.BLUE);
-						bobt.grow(250,75); 
+						bobt.grow(255,75); 
 			
 			Text bobto = new Text(700,332.5,"You Lose! :( Try Not to Suck!");
 			bobto.setColor(Color.BLUE);
-			bobto.grow(250,75); 
+			bobto.grow(255,75); 
 			
-			Text sup = new Text(70,10,"High Score: Level 8");
+			EasyReader joer = new EasyReader("High_Score.txt");
+			int score = joer.readInt();
+			Text sup = new Text(70,10,"High Score: Level "+score);
 			//19
 			sup.setColor(Color.RED);
 			sup.grow(55,20); 
@@ -71,6 +73,9 @@ public class starter implements InputControl, InputKeyControl
 			double iy = 4.0;
 			int scorer = 1;
 			int tt=1;
+			boolean jok = true;
+			int qq=0;
+			
 			
 			for(int i = 0; i<jefz.length; i++)
 			{
@@ -120,7 +125,7 @@ public class starter implements InputControl, InputKeyControl
 						while (true)
 						{
 							int pl= 0;
-							int qq=0;
+							
 							int du =Canvas.rand(255);
 							int dtu =Canvas.rand(255);
 							int dtyu =Canvas.rand(255);
@@ -129,10 +134,48 @@ public class starter implements InputControl, InputKeyControl
 							bobto.setColor(siz);
 							bobto.grow(8*pl,8*pl); 
 							pl++;
-							qq++;
-							joe.grow(.5*qq,0.5*qq);
+							
+							joe.grow(.5,0.5);
+							if(((scorer > score)&&jok ))
+							{
+								EasyWriter bobo = new EasyWriter("High_Score.txt");
+								EasyWriter bobo2 = new EasyWriter("High_Score.txt");
+								bobo2.print(scorer);
+								bobo2.close();
+								
+								jok = false;
+								
+							}
+							
+							
 							
 						}
+						// if((scorer > score)&&jok)
+						// {
+							// EasyWriter bobo = new EasyWriter("High_Score.txt");
+							// EasyWriter bobo2 = new EasyWriter("High_Score.txt");
+							// bobo2.print(scorer);
+							// bobo2.close();
+						
+							// while (true)
+							// {
+								// int pl= 0;
+								
+								// int du =Canvas.rand(255);
+								// int dtu =Canvas.rand(255);
+								// int dtyu =Canvas.rand(255);
+								// Color siz = new Color(du,dtu,dtyu);
+								// bobto.draw();
+								// bobto.setColor(siz);
+								// bobto.grow(8*pl,8*pl); 
+								// pl++;
+								// qq++;
+								// joe.grow(.5*qq,0.5*qq);
+								
+							// }
+							
+							
+						// }
 					}
 					
 					
@@ -179,6 +222,7 @@ public class starter implements InputControl, InputKeyControl
 			
 				
 			}
+		
 			
 		}
 		
