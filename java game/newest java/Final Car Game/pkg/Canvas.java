@@ -142,10 +142,10 @@ public class Canvas
      * Pauses so that the user can see the picture before it is transformed.
      */
    // invented by Dylan sometime academic year 18'-19'
-	public static void pause(int td) 
+	public static void pause(double td) 
 	{
 	  try {
-		Thread.sleep(td);
+		Thread.sleep((long)td);
 	  } catch(InterruptedException ex) {
 		Thread.currentThread().interrupt();
 	  }

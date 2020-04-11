@@ -1,6 +1,6 @@
 import pkg.*;
 
-public class Car
+public class Car extends Vehicle
 {
 		private   Rectangle Bound;
 		private   Rectangle Bod;
@@ -25,6 +25,7 @@ public class Car
 		private   Text word;
 		private   Color po;
 		private  Color o;
+		private String name = "";
 		//private   int u=0;
 		
 		public Car()
@@ -166,6 +167,7 @@ public class Car
 			
 			//Bod = new Rectangle(xx+15,yy+36,105,30);
 			word = new Text(xx+55,yy+46,""+pepe);
+			name = pepe;
 			
 			
 			
@@ -269,21 +271,21 @@ public class Car
 	
 	
 	
-	public int getX()
+	public double getX()
 	{
 		return Bound.getX();
 	}
 	
-	public int getY()
+	public double getY()
 	{
 		return Bound.getY();
 	}
-	public int getWidth()
+	public double getWidth()
 	{
 		return Bound.getWidth();
 	}
 	
-	public int getHeight()
+	public double getHeight()
 	{
 		return Bound.getHeight();
 	}
@@ -319,6 +321,19 @@ public class Car
 	{
 		x = st;
 	}
+	
+	public boolean contains(Vehicle a)
+	{
+		if(Bound.getX() < a.getX() + a.getWidth() && Bound.getX() + Bound.getWidth() > a.getX() && Bound.getY() < a.getY() + a.getHeight() && Bound.getY() + Bound.getHeight() > a.getY())
+		{ 
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	
 	
 	public void drive()
 	{
@@ -388,6 +403,12 @@ public class Car
 		 }
 		 
 		//}
+		
+	}
+	
+	public String toString()
+	{
+		return("Vehicle of type Car with name: " + name + "is at location (" + Bound.getX() +"," + Bound.getY()  + ")");
 		
 	}
 	

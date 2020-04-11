@@ -85,7 +85,7 @@ public class happyFace
 		test.grow(ww,zz);
 	}
 	
-	public boolean crash(Car a)
+	public boolean crash(Vehicle a)
 	{
 		if(test.getX() < a.getX() + a.getWidth() && test.getX ()+ test.getWidth() > a.getX() && test.getY() < a.getY() + a.getHeight() && test.getY() + test.getHeight() > a.getY())
 		{ 

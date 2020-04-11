@@ -1,12 +1,15 @@
 import pkg.*;
+import java.util.ArrayList;
+import java.util.List;
 public class starter implements InputControl, InputKeyControl 
 {
 		
-		static Car[] jefz;
+		static List<Vehicle> jefz;
 		static happyFace joe;
 		static Rectangle button;
 		static Rectangle mouser;
 		static boolean piggy;
+		static double faceSpeed =8;
         public static void main(String args[])
         {
 		
@@ -15,6 +18,9 @@ public class starter implements InputControl, InputKeyControl
 			
 			// please leave following line alone, necessary for keyboard input
 			KeyController kC = new KeyController(Canvas.getInstance(),new starter());
+			jefz = new ArrayList<Vehicle>();
+			
+			
 			Text bob = new Text(700,332.5,"Click Here To Begin!");
 			bob.setColor(Color.WHITE);
 			bob.grow(155,75); 
@@ -45,6 +51,8 @@ public class starter implements InputControl, InputKeyControl
 			int y =0;
 			
 			int nene = 1;
+			
+			
 			//button = new Rectangle(500,275,450,150);
 			//button.setColor(Color.WHITE);
 			 
@@ -68,16 +76,20 @@ public class starter implements InputControl, InputKeyControl
 			joe = new happyFace(660,561);
 			joe.fill();
 			
-			jefz = new Car[14];
+			//jefz = new Car[14];
 			//int x = 0;
-			double iy = 4.0;
+			double iy = 2.0;
 			int scorer = 1;
 			int tt=1;
 			boolean jok = true;
 			int qq=0;
 			
+			int size = 8;
+			int carsize = size;
+			//// to do list change array into arraylist
+			//// so the contains thing will work and general betterness 4/1/2020
 			
-			for(int i = 0; i<jefz.length; i++)
+			for(int i = 0; i<size; i++)
 			{
 				int p = (Canvas.rand(1350)-375);
 				//int d =Canvas.rand(600);
@@ -88,10 +100,18 @@ public class starter implements InputControl, InputKeyControl
 				Color ni = new Color(d,dt,dty);
 				//int dr =Canvas.rand(6);
 				//x = x+10;
-				jefz[i] = new Car(p,(pr*110)+13.25, "vroom", ni);
-				jefz[i].fill();
-				jefz[i].setStep(iy);
+				jefz.add(new Car(p,(pr*110)+13.25, "vroom", ni));
+				jefz.get(i).fill();
+				jefz.get(i).setStep(iy);
+				for(int t = 0; t<jefz.size()-1;t++)
+				{
+					if(jefz.get(i).contains(jefz.get(t)))
+					{
+						jefz.get(i).translate(Canvas.rand(200)-100,Canvas.rand(5)*110);
+					}
+				}
 			}
+			System.out.println(jefz);
 			button.fill(); bob.draw();
 			while(!piggy)
 			{
@@ -104,36 +124,33 @@ public class starter implements InputControl, InputKeyControl
 			while(true)
 			{
 				
-				for(int lo =0; lo<jefz.length; lo++)
+				for(int lo =0; lo<jefz.size(); lo++)
 				{
 					
 					Canvas.pause(1);
-					jefz[lo].translate(jefz[lo].getStep(),0);
-					jefz[lo].drive();
+					jefz.get(lo).translate(jefz.get(lo).getStep(),0);
+					jefz.get(lo).drive();
 					
 					if(joe.getX() > 1400)
 					{
 						joe.translate(-1550,0);
 					}
 					
-					if (joe.crash(jefz[lo]))
+					if (joe.crash(jefz.get(lo)))
 					{
-						for(int ppp=0;ppp<jefz.length;ppp++)
+						for(int ppp=0;ppp<jefz.size();ppp++)
 						{
-							jefz[ppp].setStep(0);
+							jefz.get(ppp).setStep(0);
 						}
 						while (true)
 						{
-							int pl= 0;
+							//int pl= 0;
 							
-							int du =Canvas.rand(255);
-							int dtu =Canvas.rand(255);
-							int dtyu =Canvas.rand(255);
-							Color siz = new Color(du,dtu,dtyu);
+							
 							bobto.draw();
-							bobto.setColor(siz);
-							bobto.grow(8*pl,8*pl); 
-							pl++;
+							bobto.setColor(new Color(Canvas.rand(255),Canvas.rand(255),Canvas.rand(255)));
+							//bobto.grow(8*pl,8*pl); 
+							//pl++;
 							
 							joe.grow(.5,0.5);
 							if(((scorer > score)&&jok ))
@@ -196,17 +213,21 @@ public class starter implements InputControl, InputKeyControl
 						button.fill();
 						bobt.setText("You Win! Click To Begin Level "+ nene +" !");
 						bobt.draw();
-						jefz[lo].setStep(0);
+						jefz.get(lo).setStep(0);
 						if (piggy)
 						{
-							for(int uy=0;uy<jefz.length;uy++)
+							jefz.add(new Car((Canvas.rand(350)-475),(Canvas.rand(5)*110)+13.25, "vroom", new Color(Canvas.rand(255),Canvas.rand(255),Canvas.rand(255))));
+							jefz.get(jefz.size()-1).fill();
+							for(int uy=0;uy<jefz.size();uy++)
 							{
-								jefz[uy].setStep(iy);
-							}
+								jefz.get(uy).setStep(iy);
+							}System.out.println(jefz + "\n");
 							if (tt==2)
 							{
 								iy =iy+1.5;
+								faceSpeed += 1.25;
 								scorer ++;
+								
 								
 								tt=1;
 								joe.translate(0,800);
@@ -243,21 +264,41 @@ public class starter implements InputControl, InputKeyControl
 		public void keyPress(String s)
 		{
 			
+			if(s.equals("w") && (s.equals("d")))
+			{
+				joe.translate(8,-8);
+			}
+			
+			if(s.equals("w") && (s.equals("a")))
+			{
+				joe.translate(-8,-8);
+			}
+			
+			if(s.equals("s") && (s.equals("d")))
+			{
+				joe.translate(8,8);
+			}
+			if(s.equals("s") && (s.equals("a")))
+			{
+				joe.translate(-8,8);
+			}
+			
 			if(s.equals("w"))
 			{
-				joe.translate(0,-8);
+				joe.translate(0,-faceSpeed);
 			}
+			
 			if(s.equals("a"))
 			{
-				joe.translate(-8,0);
+				joe.translate(-faceSpeed,0);
 			}
 			if(s.equals("s"))
 			{
-				joe.translate(0,8);
+				joe.translate(0,faceSpeed);
 			}
 			if(s.equals("d"))
 			{
-				joe.translate(8,0);
+				joe.translate(faceSpeed,0);
 			}
 			
 			
