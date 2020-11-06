@@ -161,23 +161,54 @@ public class starter implements InputControl, InputKeyControl
 						joe.translate(1400,0);  
 					}
 					
+					// for(int i=0; i<holder.size();i++)
+					// {
+						// for(int b=0; b<jefz.size()-1;b++)
+						// {
+							// if(holder.get(i)==b)
+							// {
+								// b++;
+							// }
+								////System.out.println(jefz.get(holder.get(i))+"  "+jefz.get(b));
+							// if(jefz.get(holder.get(i)).contains(jefz.get(b)))
+							// {
+								// if(Canvas.rand(2) ==1)
+								// {
+									// for(int a = 0; a<20; a++)
+									// {
+										// jefz.get(b).translate(0,5.5); 
+										// System.out.println("A tractor bumped a " + jefz.get(b));
+									
+									// }
+									//// System.out.println("Hit with Tractor " + i + " and Car " + b);
+									//// System.out.println(jefz.get(holder.get(i))+"  "+jefz.get(b));
+								// }
+								// else
+								// {
+									// for(int a = 0; a<20; a++)
+									// {
+										// jefz.get(b).translate(0,-5.5);
+										// System.out.println("A tractor bumped a " + jefz.get(b));
+									// }
+								// }
+							// }
+						// }
+					// }
+					
 					for(int i=0; i<holder.size();i++)
 					{
-						for(int b=0; b<jefz.size()-1;b++)
+						if(holder.get(i) == lo)
 						{
-							if(holder.get(i)==b)
-							{
-								b++;
-							}
-							//System.out.println(jefz.get(holder.get(i))+"  "+jefz.get(b));
-							if(jefz.get(holder.get(i)).contains(jefz.get(b)))
-							{
-								if(Canvas.rand(2) ==1)
+							break;
+						}
+						if(jefz.get(lo).contains(jefz.get(holder.get(i))))
+						{
+							if(Canvas.rand(2) ==1)
 								{
 									for(int a = 0; a<20; a++)
 									{
-										jefz.get(b).translate(0,5.5);
-										System.out.println("A tractor bumped a " + jefz.get(b));
+										jefz.get(lo).translate(0,5.5); 
+										System.out.println("A tractor bumped a " + jefz.get(lo));
 									
 									}
 									//System.out.println("Hit with Tractor " + i + " and Car " + b);
@@ -187,11 +218,10 @@ public class starter implements InputControl, InputKeyControl
 								{
 									for(int a = 0; a<20; a++)
 									{
-										jefz.get(b).translate(0,-5.5);
-										System.out.println("A tractor bumped a " + jefz.get(b));
+										jefz.get(lo).translate(0,-5.5);
+										System.out.println("A tractor bumped a " + jefz.get(lo));
 									}
 								}
-							}
 						}
 					}
 					
@@ -285,7 +315,7 @@ public class starter implements InputControl, InputKeyControl
 							}
 							else
 							{
-								jefz.add(new Car((Canvas.rand(350)-475),(Canvas.rand(5)*110)+13.25, "vroom", new Color(Canvas.rand(255),Canvas.rand(255),Canvas.rand(255))));
+								jefz.add(new Car((Canvas.rand(350)-475),(Canvas.rand(5)*110)+13.25, "vroom"+ jefz.size(), new Color(Canvas.rand(255),Canvas.rand(255),Canvas.rand(255))));
 								jefz.get(jefz.size()-1).fill();
 								System.out.println("A " + jefz.get(jefz.size()-1) + " has been added");
 							}
@@ -308,7 +338,7 @@ public class starter implements InputControl, InputKeyControl
 									jefz.get(uy).setStep(iy);
 								}
 							}
-							System.out.println(jefz + "\n");
+							System.out.println("\n" + jefz + "\n");
 							if (tt==2)
 							{
 								iy =iy+1.15;
