@@ -11,7 +11,7 @@ public class Tractor extends Vehicle
 	private Ellipse wheel2;
 	private Rectangle wheelHold;
 	private double xx;
-	public Tractor(int x,int y)
+	public Tractor(double x,double y)
     {
 					
 				// int x;
@@ -54,11 +54,12 @@ public class Tractor extends Vehicle
 				front.fill();
 				front.setColor(Color.DARK_GRAY);
 				fixer.setColor(Color.WHITE);
-				fixer.fill();
+				//fixer.fill();
 				wheel.fill();
 				wheel2.fill();
 				wheelHold.setColor(Color.DARK_GRAY);
 				wheelHold.fill();
+				//outline.draw();
 			}
 			public double getX()
 			{
@@ -84,6 +85,8 @@ public class Tractor extends Vehicle
 			{
 				return xx;
 			}
+			// I added the plus to make car game work. Possible fix for future being
+			// fix car game then fix this
 			public void setStep(double st)
 			{
 				xx = st;
@@ -125,7 +128,7 @@ public class Tractor extends Vehicle
 				wheel.translate(-1550,110);
 				wheel2.translate(-1550,110);
 				wheelHold.translate(-1550,110);
-				outline.translate(-1550,110);
+				//outline.translate(-1550,110);
 				
 		 }
 		 if (outline.getY()>=550)
@@ -145,7 +148,7 @@ public class Tractor extends Vehicle
 	}
 	public String toString()
 	{
-		return("Vehicle of type Tractor is at location (" + outline.getX() +"," + outline.getY() + ")");
+		return("Vehicle of type Tractor is at location (" + outline.getX() +"," + outline.getY() + ") \n");
 		
 	}
 	 

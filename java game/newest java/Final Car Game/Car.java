@@ -243,7 +243,7 @@ public class Car extends Vehicle
 		word.setColor(Color.WHITE);
 		Bod.setColor(po);
 			Bod.fill();
-		//	Bound.draw();
+				//Bound.draw();
 			Bump.setColor(po);
 			Bump.fill();
 			Bump2.setColor(po);
@@ -401,6 +401,27 @@ public class Car extends Vehicle
 		 spoke8.translate(0,-550);
 		 word.translate(0,-550);
 		 }
+		if (Bound.getY()< 0)
+		 {
+			 Bod.translate(0,550);
+			Bound.translate(0,550);
+		  Bump.translate(0,550);
+		 Bump2.translate(0,550);
+		 roof.translate(0,550);
+		  tire.translate(0,550);
+		  tire2.translate(0,550);
+		  wheel.translate(0,550);
+		  wheel2.translate(0,550);
+		 spoke.translate(0,550);
+		 spoke2.translate(0,550);
+		  spoke3.translate(0,550);
+		 spoke4.translate(0,550);
+		  spoke5.translate(0,550);
+		  spoke6.translate(0,550);
+		  spoke7.translate(0,550);
+		 spoke8.translate(0,550);
+		 word.translate(0,550);
+		 }
 		 
 		//}
 		
@@ -408,7 +429,7 @@ public class Car extends Vehicle
 	
 	public String toString()
 	{
-		return("Vehicle of type Car with name: " + name + "is at location (" + Bound.getX() +"," + Bound.getY()  + ")");
+		return("Vehicle of type Car with name: " + name + " is at location (" + Bound.getX() +"," + Bound.getY()  + ") \n");
 		
 	}
 	

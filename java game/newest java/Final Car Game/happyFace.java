@@ -16,7 +16,7 @@ public class happyFace
 		//y=20
 			jo = new Ellipse(x,y,50,50); 
 			
-			test = new Rectangle(x,y,50,50); 
+			test = new Rectangle(x+5,y+5,40,40); 
 			
 			  
 			 eyer = new Ellipse(x+7.835,y+10.5,12.5,12.5); 
@@ -37,7 +37,7 @@ public class happyFace
 		jo.setColor(Color.YELLOW);
 			jo.fill();
 			
-			//test.draw();
+			test.draw();
 		
 		mouth.setColor(Color.WHITE);
 			mouth.fill();
@@ -87,7 +87,7 @@ public class happyFace
 	
 	public boolean crash(Vehicle a)
 	{
-		if(test.getX() < a.getX() + a.getWidth() && test.getX ()+ test.getWidth() > a.getX() && test.getY() < a.getY() + a.getHeight() && test.getY() + test.getHeight() > a.getY())
+		if((test.getX() < a.getX() + a.getWidth()) && (test.getX()+ test.getWidth() > a.getX()) && (test.getY() < a.getY() + a.getHeight()) && (test.getY() + test.getHeight() > a.getY()))
 		{ 
 			return true;
 		}

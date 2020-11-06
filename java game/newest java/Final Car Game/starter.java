@@ -5,12 +5,13 @@ public class starter implements InputControl, InputKeyControl
 {
 		
 		static List<Vehicle> jefz;
+		static List<Integer> holder;
 		static happyFace joe;
 		static Rectangle button;
 		static Rectangle mouser;
 		static boolean piggy;
 		static double faceSpeed =8;
-		static double diagmove = 4*Math.sqrt(2);
+		static double diagmove = 0.5*Math.sqrt(2);
         public static void main(String args[])
         {
 		
@@ -20,7 +21,10 @@ public class starter implements InputControl, InputKeyControl
 			// please leave following line alone, necessary for keyboard input
 			KeyController kC = new KeyController(Canvas.getInstance(),new starter());
 			jefz = new ArrayList<Vehicle>();
+			holder = new ArrayList<Integer>();
 			
+			
+		
 			
 			Text bob = new Text(700,332.5,"Click Here To Begin!");
 			bob.setColor(Color.WHITE);
@@ -89,6 +93,7 @@ public class starter implements InputControl, InputKeyControl
 			int carsize = size;
 			//// to do list change array into arraylist
 			//// so the contains thing will work and general betterness 4/1/2020
+			//// I have no recollection of writing ^^this^^ or fixing this 11/5/2020
 			
 			for(int i = 0; i<size; i++)
 			{
@@ -101,9 +106,19 @@ public class starter implements InputControl, InputKeyControl
 				Color ni = new Color(d,dt,dty);
 				//int dr =Canvas.rand(6);
 				//x = x+10;
-				jefz.add(new Car(p,(pr*110)+13.25, "vroom", ni));
+				
+				if(Canvas.rand(5) == 1)
+				{
+					jefz.add(new Tractor(p,(pr*110)+13.25));
+					jefz.get(i).setStep(iy+0.25);
+					holder.add(i);
+				}
+				else{
+					jefz.add(new Car(p,(pr*110)+13.25, "vroom", ni));
+					jefz.get(i).setStep(iy);
+				}
 				jefz.get(i).fill();
-				jefz.get(i).setStep(iy);
+				
 				for(int t = 0; t<jefz.size()-1;t++)
 				{
 					if(jefz.get(i).contains(jefz.get(t)))
@@ -112,7 +127,10 @@ public class starter implements InputControl, InputKeyControl
 					}
 				}
 			}
+			
+			
 			System.out.println(jefz);
+			System.out.println("\n" +holder );
 			button.fill(); bob.draw();
 			while(!piggy)
 			{
@@ -132,14 +150,49 @@ public class starter implements InputControl, InputKeyControl
 					jefz.get(lo).translate(jefz.get(lo).getStep(),0);
 					jefz.get(lo).drive();
 					
-					if(joe.getX() > 1400)
+					if(joe.getX() > 1350)
 					{
-						joe.translate(-1550,0);
+						joe.translate(-1400,0);
 					}
 					else if(joe.getX() < -50)
 					{
-						joe.translate(1550,0);  
+						joe.translate(1400,0);  
 					}
+					
+					for(int i=0; i<holder.size();i++)
+					{
+						for(int b=0; b<jefz.size()-1;b++)
+						{
+							if(holder.get(i)==b)
+							{
+								b++;
+							}
+							//System.out.println(jefz.get(holder.get(i))+"  "+jefz.get(b));
+							if(jefz.get(holder.get(i)).contains(jefz.get(b)))
+							{
+								if(Canvas.rand(2) ==1)
+								{
+									for(int a = 0; a<20; a++)
+									{
+										jefz.get(b).translate(0,5.5);
+										System.out.println("A tractor bumped a " + jefz.get(b));
+									
+									}
+									//System.out.println("Hit with Tractor " + i + " and Car " + b);
+									//System.out.println(jefz.get(holder.get(i))+"  "+jefz.get(b));
+								}
+								else
+								{
+									for(int a = 0; a<20; a++)
+									{
+										jefz.get(b).translate(0,-5.5);
+										System.out.println("A tractor bumped a " + jefz.get(b));
+									}
+								}
+							}
+						}
+					}
+					
 					
 					if (joe.crash(jefz.get(lo)))
 					{
@@ -221,8 +274,14 @@ public class starter implements InputControl, InputKeyControl
 						jefz.get(lo).setStep(0);
 						if (piggy)
 						{
-							jefz.add(new Car((Canvas.rand(350)-475),(Canvas.rand(5)*110)+13.25, "vroom", new Color(Canvas.rand(255),Canvas.rand(255),Canvas.rand(255))));
-							
+							if(Canvas.rand(4) == 1)
+							{
+								jefz.add(new Tractor((Canvas.rand(350)-475),(Canvas.rand(5)*110)+13.25));
+							}
+							else
+							{
+								jefz.add(new Car((Canvas.rand(350)-475),(Canvas.rand(5)*110)+13.25, "vroom", new Color(Canvas.rand(255),Canvas.rand(255),Canvas.rand(255))));
+							}
 							for(int t = 0; t<jefz.size()-1;t++)
 								{
 									if(jefz.get(jefz.size()-1).contains(jefz.get(t)))
@@ -233,18 +292,26 @@ public class starter implements InputControl, InputKeyControl
 							
 							for(int uy=0;uy<jefz.size();uy++)
 							{
-								jefz.get(uy).setStep(iy);
-							}System.out.println(jefz + "\n");
+								if(jefz.get(uy).getHeight() < 60)
+								{
+									jefz.get(uy).setStep(iy+(0.125*iy));
+								}
+								else if(jefz.get(uy).getHeight() > 60)
+								{
+									jefz.get(uy).setStep(iy);
+								}
+							}
+							System.out.println(jefz + "\n");
 							if (tt==2)
 							{
-								iy =iy+1.5;
-								faceSpeed += 1.25;
+								iy =iy+1.15;
+								faceSpeed += 1.075;
 								scorer ++;
 								
 								
 								tt=1;
 								System.out.println(joe.getY());
-								joe.translate(0,800+ (-1* joe.getY()));
+								joe.translate(0,700+ (-1* joe.getY()));
 								System.out.println(joe.getY());
 								button.translate(1550,1550);
 								bobt.translate(1550,1550);
@@ -281,21 +348,21 @@ public class starter implements InputControl, InputKeyControl
 			
 			if(s.equals("e"))
 			{
-				joe.translate(diagmove,- diagmove);
+				joe.translate(diagmove*faceSpeed,- diagmove*faceSpeed);
 			}
 			
 			if(s.equals("q"))
 			{
-				joe.translate(- diagmove,- diagmove);
+				joe.translate(- diagmove*faceSpeed,- diagmove*faceSpeed);
 			}
 			
 			if(s.equals("c"))
 			{
-				joe.translate(diagmove,diagmove);
+				joe.translate(diagmove*faceSpeed,diagmove*faceSpeed);
 			}
 			if(s.equals("z"))
 			{
-				joe.translate(- diagmove,diagmove);
+				joe.translate(- diagmove*faceSpeed,diagmove*faceSpeed);
 			}
 			
 			if(s.equals("w"))
