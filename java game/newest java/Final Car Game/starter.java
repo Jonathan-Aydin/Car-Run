@@ -10,6 +10,7 @@ public class starter implements InputControl, InputKeyControl
 		static Rectangle mouser;
 		static boolean piggy;
 		static double faceSpeed =8;
+		static double diagmove = 4*Math.sqrt(2);
         public static void main(String args[])
         {
 		
@@ -135,6 +136,10 @@ public class starter implements InputControl, InputKeyControl
 					{
 						joe.translate(-1550,0);
 					}
+					else if(joe.getX() < -50)
+					{
+						joe.translate(1550,0);  
+					}
 					
 					if (joe.crash(jefz.get(lo)))
 					{
@@ -217,7 +222,15 @@ public class starter implements InputControl, InputKeyControl
 						if (piggy)
 						{
 							jefz.add(new Car((Canvas.rand(350)-475),(Canvas.rand(5)*110)+13.25, "vroom", new Color(Canvas.rand(255),Canvas.rand(255),Canvas.rand(255))));
-							jefz.get(jefz.size()-1).fill();
+							
+							for(int t = 0; t<jefz.size()-1;t++)
+								{
+									if(jefz.get(jefz.size()-1).contains(jefz.get(t)))
+									{
+										jefz.get(jefz.size()-1).translate(Canvas.rand(200)-100,Canvas.rand(5)*110);
+									}
+								}
+							
 							for(int uy=0;uy<jefz.size();uy++)
 							{
 								jefz.get(uy).setStep(iy);
@@ -230,7 +243,9 @@ public class starter implements InputControl, InputKeyControl
 								
 								
 								tt=1;
-								joe.translate(0,800);
+								System.out.println(joe.getY());
+								joe.translate(0,800+ (-1* joe.getY()));
+								System.out.println(joe.getY());
 								button.translate(1550,1550);
 								bobt.translate(1550,1550);
 								//break;
@@ -264,23 +279,23 @@ public class starter implements InputControl, InputKeyControl
 		public void keyPress(String s)
 		{
 			
-			if(s.equals("w") && (s.equals("d")))
+			if(s.equals("e"))
 			{
-				joe.translate(8,-8);
+				joe.translate(diagmove,- diagmove);
 			}
 			
-			if(s.equals("w") && (s.equals("a")))
+			if(s.equals("q"))
 			{
-				joe.translate(-8,-8);
+				joe.translate(- diagmove,- diagmove);
 			}
 			
-			if(s.equals("s") && (s.equals("d")))
+			if(s.equals("c"))
 			{
-				joe.translate(8,8);
+				joe.translate(diagmove,diagmove);
 			}
-			if(s.equals("s") && (s.equals("a")))
+			if(s.equals("z"))
 			{
-				joe.translate(-8,8);
+				joe.translate(- diagmove,diagmove);
 			}
 			
 			if(s.equals("w"))
