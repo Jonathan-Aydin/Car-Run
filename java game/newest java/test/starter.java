@@ -3,6 +3,29 @@ public class starter implements InputControl, InputKeyControl
 {
 		
 		
+		public static void difficulty()
+		{
+			EasyReader input = new EasyReader();
+			System.out.print("What difficulty would you like? Please type Easy or Hard: ");
+			String in_put = input.readLine();
+			
+			if(in_put.equals("Easy"))
+			{
+				System.out.println("Easy Mode Activated");
+			}
+			
+			else if(in_put.equals("Hard"))
+			{
+				System.out.println("Hard Mode Activated");
+			}
+			
+			else
+			{
+				System.out.println("\n Error: '" + in_put + "' is not a difficulty option. \n");
+				difficulty();
+			}
+		}
+		
         public static void main(String args[])
         {
 		
@@ -11,6 +34,9 @@ public class starter implements InputControl, InputKeyControl
 			
 			// please leave following line alone, necessary for keyboard input
 			KeyController kC = new KeyController(Canvas.getInstance(),new starter());
+			
+			System.out.println("Initializing...");
+			difficulty();
 			
 			EasyReader jeff = new EasyReader("test.txt");
 			int x = jeff.readInt();
