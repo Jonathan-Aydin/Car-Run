@@ -13,7 +13,7 @@ public abstract class Vehicle
 	public abstract double getY();
 	public abstract double getHeight();
 	public abstract double getWidth();
-	public abstract double getStep();
+	public abstract double getStep(); 
 	public abstract boolean contains(Vehicle a);
 	public abstract String toString();
 	

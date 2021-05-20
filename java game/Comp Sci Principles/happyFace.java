@@ -9,7 +9,7 @@ public class happyFace
 	private double x;
 	private double y;
 	private  Rectangle test;
-	
+	 
 	public happyFace(double x, double y)
     {
 		//x=20

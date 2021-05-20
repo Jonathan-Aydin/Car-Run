@@ -59,7 +59,7 @@ public class Tractor extends Vehicle
 				wheel2.fill();
 				wheelHold.setColor(Color.DARK_GRAY);
 				wheelHold.fill();
-				outline.draw();
+				//outline.draw();
 			}
 			public double getX()
 			{

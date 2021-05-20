@@ -4,8 +4,8 @@ import java.util.List;
 public class starter implements InputControl, InputKeyControl 
 {
 	
-	
-		public static void difficulty()
+	// The following method sets the difficulty of the game according to the user's input
+		public static void difficulty(int complexity)
 		{
 			EasyReader input = new EasyReader();
 			System.out.print("What difficulty would you like? Please type Easy or Hard: ");
@@ -14,43 +14,71 @@ public class starter implements InputControl, InputKeyControl
 			if(in_put.equals("Easy"))
 			{
 				System.out.println("Easy Mode Activated");
+				iy=1.25;
+				size=complexity;
+				carsize=size;
 			}
 			
 			else if(in_put.equals("Hard"))
 			{
 				System.out.println("Hard Mode Activated");
+				iy=4.5;
+				size=complexity+8;
+				carsize=size;
 			}
 			
 			else
 			{
 				System.out.println("\n Error: '" + in_put + "' is not a difficulty option. \n");
-				difficulty();
+				difficulty(complexity);
 			}
+			
+				
+			
+		}
+		//This method makes sure to check if they are any overlapping cars and if their are then it adjusts it accordingly
+		public static int locate(ArrayList<Integer> tracking, int track)
+		{
+			for(int a =0; a<tracking.size()-1;a++)
+			{
+				if(track == tracking.get(a))
+				{
+					track = locate(tracking, Canvas.rand(1350)-375);
+				}
+			
+			}
+			tracking.add(track);
+			return track;
 		}
 		
-		static List<Vehicle> jefz;
-		static List<Integer> holder;
-		static happyFace joe;
-		static Rectangle button;
-		static Rectangle mouser;
-		static boolean piggy;
-		static double faceSpeed =8;
-		static double diagmove = 0.5*Math.sqrt(2);
 		
-		private double iy = 2.0;
+		private static List<Vehicle> jefz;
+		private static List<Integer> holder;
+		private static ArrayList<Integer> tracker;
+		private static happyFace joe;
+		private static Rectangle button;
+		private static Rectangle mouser;
+		private static boolean piggy;
+		private static double faceSpeed =8;
+		private static double diagmove = 0.5*Math.sqrt(2);
+		
+		private static double iy = 2.0;
+		
+		private static int size;
+		private static int carsize;
 		
         public static void main(String args[])
         {
-		
-			// following line is necessary for onMouseClick, don't change
-			MouseController mC = new MouseController(Canvas.getInstance(),new starter());
 			
-			// please leave following line alone, necessary for keyboard input
+			MouseController mC = new MouseController(Canvas.getInstance(),new starter());
 			KeyController kC = new KeyController(Canvas.getInstance(),new starter());
+			
+			
 			jefz = new ArrayList<Vehicle>();
 			holder = new ArrayList<Integer>();
+			tracker = new ArrayList<Integer>();
 			
-			difficulty();
+			difficulty(8);
 		
 			
 			Text bob = new Text(700,332.5,"Click Here To Begin!");
@@ -63,7 +91,7 @@ public class starter implements InputControl, InputKeyControl
 						bobt.setColor(Color.BLUE);
 						bobt.grow(255,75); 
 			
-			Text bobto = new Text(700,332.5,"You Lose! :( Try Not to Suck!");
+			Text bobto = new Text(700,332.5,"You Lose! ");
 			bobto.setColor(Color.BLUE);
 			bobto.grow(255,75); 
 			
@@ -85,8 +113,8 @@ public class starter implements InputControl, InputKeyControl
 			int nene = 1;
 			
 			
-			//button = new Rectangle(500,275,450,150);
-			//button.setColor(Color.WHITE);
+			
+			
 			 
 			
 			Color nk = new Color(82,190,128);
@@ -108,31 +136,31 @@ public class starter implements InputControl, InputKeyControl
 			joe = new happyFace(660,561);
 			joe.fill();
 			
-			//jefz = new Car[14];
-			//int x = 0;
+			
+			
 			
 			int scorer = 1;
 			int tt=1;
 			boolean jok = true;
 			int qq=0;
 			
-			int size = 8;
-			int carsize = size;
-			//// to do list change array into arraylist
-			//// so the contains thing will work and general betterness 4/1/2020
-			//// I have no recollection of writing ^^this^^ or fixing this 11/5/2020
+			
+			
+			
+			
 			
 			for(int i = 0; i<size; i++)
 			{
-				int p = (Canvas.rand(1350)-375);
-				//int d =Canvas.rand(600);
+				int p = locate(tracker,Canvas.rand(1350)-375);
+				
+				
 				int pr = Canvas.rand(5);
 				int d =Canvas.rand(255);
 				int dt =Canvas.rand(255);
 				int dty =Canvas.rand(255);
 				Color ni = new Color(d,dt,dty);
-				//int dr =Canvas.rand(6);
-				//x = x+10;
+				
+				
 				
 				if(Canvas.rand(5) == 1)
 				{
@@ -156,8 +184,7 @@ public class starter implements InputControl, InputKeyControl
 					}
 				}
 			}
-			
-			
+			 
 			System.out.println(jefz);
 			System.out.println("\n" +holder );
 			button.fill(); bob.draw();
@@ -188,39 +215,7 @@ public class starter implements InputControl, InputKeyControl
 						joe.translate(1400,0);  
 					}
 					
-					// for(int i=0; i<holder.size();i++)
-					// {
-						// for(int b=0; b<jefz.size()-1;b++)
-						// {
-							// if(holder.get(i)==b)
-							// {
-								// b++;
-							// }
-								////System.out.println(jefz.get(holder.get(i))+"  "+jefz.get(b));
-							// if(jefz.get(holder.get(i)).contains(jefz.get(b)))
-							// {
-								// if(Canvas.rand(2) ==1)
-								// {
-									// for(int a = 0; a<20; a++)
-									// {
-										// jefz.get(b).translate(0,5.5); 
-										// System.out.println("A tractor bumped a " + jefz.get(b));
-									
-									// }
-									//// System.out.println("Hit with Tractor " + i + " and Car " + b);
-									//// System.out.println(jefz.get(holder.get(i))+"  "+jefz.get(b));
-								// }
-								// else
-								// {
-									// for(int a = 0; a<20; a++)
-									// {
-										// jefz.get(b).translate(0,-5.5);
-										// System.out.println("A tractor bumped a " + jefz.get(b));
-									// }
-								// }
-							// }
-						// }
-					// }
+					
 					
 					for(int i=0; i<holder.size();i++)
 					{
@@ -238,8 +233,7 @@ public class starter implements InputControl, InputKeyControl
 										System.out.println("A tractor bumped a " + jefz.get(lo));
 									
 									}
-									//System.out.println("Hit with Tractor " + i + " and Car " + b);
-									//System.out.println(jefz.get(holder.get(i))+"  "+jefz.get(b));
+								
 								}
 								else
 								{
@@ -261,15 +255,11 @@ public class starter implements InputControl, InputKeyControl
 						}
 						while (true)
 						{
-							//int pl= 0;
-							
 							
 							bobto.draw();
 							bobto.setColor(new Color(Canvas.rand(255),Canvas.rand(255),Canvas.rand(255)));
-							//bobto.grow(8*pl,8*pl); 
-							//pl++;
-							
-							joe.grow(.5,0.5);
+							joe.translate(10000,10000);
+
 							if(((scorer > score)&&jok ))
 							{
 								EasyWriter bobo = new EasyWriter("High_Score.txt");
@@ -284,32 +274,7 @@ public class starter implements InputControl, InputKeyControl
 							
 							
 						}
-						// if((scorer > score)&&jok)
-						// {
-							// EasyWriter bobo = new EasyWriter("High_Score.txt");
-							// EasyWriter bobo2 = new EasyWriter("High_Score.txt");
-							// bobo2.print(scorer);
-							// bobo2.close();
-						
-							// while (true)
-							// {
-								// int pl= 0;
-								
-								// int du =Canvas.rand(255);
-								// int dtu =Canvas.rand(255);
-								// int dtyu =Canvas.rand(255);
-								// Color siz = new Color(du,dtu,dtyu);
-								// bobto.draw();
-								// bobto.setColor(siz);
-								// bobto.grow(8*pl,8*pl); 
-								// pl++;
-								// qq++;
-								// joe.grow(.5*qq,0.5*qq);
-								
-							// }
-							
-							
-						// }
+
 					}
 					
 					
@@ -324,9 +289,7 @@ public class starter implements InputControl, InputKeyControl
 							bobt.setColor(Color.BLUE);
 							bobt.grow(250,75); 
 						}
-						
-						
-						//button.setColor(Color.WHITE);  
+						  
 						button.fill();
 						bobt.setText("You Win! Click To Begin Level "+ nene +" !");
 						bobt.draw();
@@ -342,7 +305,7 @@ public class starter implements InputControl, InputKeyControl
 							}
 							else
 							{
-								jefz.add(new Car((Canvas.rand(350)-475),(Canvas.rand(5)*110)+13.25, "vroom"+ jefz.size(), new Color(Canvas.rand(255),Canvas.rand(255),Canvas.rand(255))));
+								jefz.add(new Car((Canvas.rand(350)-475),(Canvas.rand(5)*110)+13.25, "vroom", new Color(Canvas.rand(255),Canvas.rand(255),Canvas.rand(255))));
 								jefz.get(jefz.size()-1).fill();
 								System.out.println("A " + jefz.get(jefz.size()-1) + " has been added");
 							}
@@ -365,7 +328,7 @@ public class starter implements InputControl, InputKeyControl
 									jefz.get(uy).setStep(iy);
 								}
 							}
-							System.out.println("\n" + jefz + "\n");
+							//System.out.println("\n" + jefz + "\n");
 							if (tt==2)
 							{
 								iy =iy+1.15;
@@ -393,9 +356,9 @@ public class starter implements InputControl, InputKeyControl
 			
 		}
 		
-		public void onMouseClick(double x, double y){
-			// and/or here
-			mouser = new Rectangle(x-12.5,y-35,10,10); //mouser.draw();
+		public void onMouseClick(double x, double y)
+		{
+			mouser = new Rectangle(x-12.5,y-35,10,10); 
 			if (button.contains(mouser))
 			{
 				piggy = true;
@@ -448,10 +411,12 @@ public class starter implements InputControl, InputKeyControl
 			}
 			
 			
-			// temp holds the enter character
 			
 			char done = (char)10;
 			String temp = Character.toString(done);
 			
 		}
 }
+
+
+

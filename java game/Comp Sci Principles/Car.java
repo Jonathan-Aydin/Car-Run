@@ -8,7 +8,7 @@ public class Car extends Vehicle
 		private   Ellipse Bump;
 		private   Ellipse Bump2;
 		private   Ellipse roof;
-		private   Ellipse tire;
+		private   Ellipse tire; 
 		private   Ellipse tire2;
 		private   Ellipse wheel;
 		private   Ellipse wheel2;
